@@ -90,11 +90,8 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                
-        
-            <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="{{ route('home.about')}}">Laravel. Controller</a>
+
                 </div>
             </div>
         </div>

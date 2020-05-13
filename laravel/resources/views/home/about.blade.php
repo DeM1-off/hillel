@@ -12,24 +12,23 @@
       </style>
 </head>
 <body>
-    
+
 <nav>
-    <h1>Page Get</h1>
-    
-    <a href="{{ route('home1.index')}}">index</a>
-    <a href="{{ route('home1.get')}}">get</a>
-    <a href="{{ route('home1.comment')}}">comment</a>
+    <h1> <a href="/">Page get</a> </h1>
+    <a href="{{ route('home.about')}}">about</a>
+    <a href="{{ route('home.count')}}">count</a>
+    <a href="{{ route('home.comment')}}">comment</a>
     </nav>
-    
-    
+
+
     <div class="content">
-    
+
     <h2>Simple text </h2>
-    
+
     </div>
-    
+
     <progress id="elem"></progress>
-    
+
       <script>
         elem.onclick = function() {
           animate({
