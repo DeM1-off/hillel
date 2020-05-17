@@ -91,7 +91,7 @@
 
                 <div class="links">
                     <a href="{{ route('home.about')}}">Laravel. Controller</a>
-
+                    <a  href="{{ route('finanse.route') }}" >Менеджер Финансов </a>
                 </div>
             </div>
         </div>

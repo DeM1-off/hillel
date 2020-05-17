@@ -26,3 +26,19 @@ Route::get('/home/count', function () {
 Route::get('/home/comment', function () {
     return view('home/comment');
 })->name('home.comment');
+
+//Laravel. Work with models
+
+Route::resource('pay','PayController');
+Route::resource('income','IncomeController');
+
+Route::get('finanse/income/sum', 'IncomeController@sum')->name('income.sum');
+Route::get('finanse/route', function () {
+    return view('finanse/route');})->name('finanse.route');
+Route::get('finanse/pay/sum', 'PayController@sum')->name('pay.sum');
+
+
+
+
+
+
