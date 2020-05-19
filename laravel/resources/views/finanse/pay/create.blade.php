@@ -15,9 +15,14 @@
     }
 </style>
 <body>
+<a href="{{   route('pay.index') }}">Назад</a>
 <div class="container">
     <div class="row">
-        <a href="{{   route('pay.index') }}">Назад</a>
+
+        <h3>Create Pay</h3>
+
+        @include('errors')
+
         <form action="{{ route('pay.store') }}" method="post">
             @csrf
 

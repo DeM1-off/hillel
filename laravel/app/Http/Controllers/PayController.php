@@ -1,12 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
+
+
+use App\Http\Services\PayServiceInterface;
 use App\Models\Pay;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\PayRequest;
+
 
 class PayController extends Controller
 {
+
+    /**
+     * @var PayServiceInterface
+     */
+    private $payService;
+
+    public function __construct(PayServiceInterface $payService)
+    {
+        $this->payService = $payService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,6 +30,7 @@ class PayController extends Controller
      */
     public function index()
     {
+
         $pays = Pay::all();
 
         return view('finanse/pay.index', compact('pays'));
@@ -35,30 +52,13 @@ class PayController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PayRequest $request)
     {
-        try {
-            $this->validate($request,[
-
-                'spending' =>'required',
-                'sum' => 'required',
-                'comment' =>'required'
-
-            ]);
 
             $pays = new Pay();
-            $pays ->sum =$request->get('sum');
-            $pays ->spending =$request->get('spending');
-            $pays ->comment =$request->get('comment');
+            $pays->fill($request->all());
             $pays ->save();
-
             return redirect(route('pay.index'));
-
-        }
-        catch (\Exception $e){
-            return redirect(route('pay.create'));
-
-        }
 
     }
 
@@ -70,7 +70,10 @@ class PayController extends Controller
      */
     public function show($id)
     {
-        return view('finanse/pay.show', ['pay' => Pay::findOrFail($id)]);
+
+        $pays = $this->fetchPayOrFail($id);
+
+        return view('finanse/pay.show', compact('pays'));
     }
 
     /**
@@ -81,7 +84,9 @@ class PayController extends Controller
      */
     public function edit($id)
     {
-        return view('finanse/pay.edit', ['pay' => Pay::find($id)]);
+        $pay = $this->fetchPayOrFail($id);
+
+        return view('finanse/pay.edit', compact('pay'));
     }
 
     /**
@@ -91,25 +96,15 @@ class PayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PayRequest $request, $id)
     {
-        try {
-            $this->validate($request,[
 
-                'spending' =>'required',
-                'sum' => 'required',
-                'comment' =>'required'
 
-            ]);
+        $this->payService->updatePay($id, $request->all());
 
-            $pays = Pay::find($id);
-            $pays->fill($request->all());
-            $pays->save();
+         return redirect(route('pay.index'));
 
-            return redirect(route('pay.index'));
-        } catch (\Exception $exception) {
-            return view('finanse/pay.edit', ['pays' => Pay::findOrFail($id)]);
-        }
+
     }
 
     /**
@@ -120,17 +115,35 @@ class PayController extends Controller
      */
     public function destroy($id)
     {
-        $pay= Pay::find($id);
-        $pay->delete();
+
+        $pays = Pay::findOrFail($id);
+
+        $pays->delete();
         return redirect(route('pay.index'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function sum()
     {
         $pays = DB::table('pays')
             ->sum('sum');
 
         return view('finanse/pay.sum', compact('pays'));
+
+    }
+
+
+    private function fetchPayOrFail(int $id)
+    {
+        try {
+            return $this->payService->getPayById($id);
+
+        }
+        catch (\Exception $e){
+            abort(Response::HTTP_NOT_FOUND,$e->getMessage());
+        }
 
     }
 

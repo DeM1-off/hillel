@@ -15,11 +15,13 @@
     }
 </style>
 <body>
+<p>  <a href="{{   route('income.index') }}">Назад</a></p>
 <div class="container">
     <div class="row">
-        <p>  <a href="{{   route('income.index') }}">Назад</a>
-        </p>
 
+<h3>Create Income</h3>
+
+@include('errors')
 
 <form action="{{ route('income.store') }}" method="post">
     @csrf

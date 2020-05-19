@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Http\Repositories\PayRepository;
+use App\Http\Repositories\PayRepositoryInterface;
+use App\Http\Services\PayService;
+use App\Http\Services\PayServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +17,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(PayServiceInterface::class,PayService::class);
+        $this->app->bind(PayRepositoryInterface::class,PayRepository::class );
     }
 
     /**

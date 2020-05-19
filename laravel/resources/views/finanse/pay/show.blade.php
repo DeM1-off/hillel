@@ -1,7 +1,7 @@
 <a href="{{   route('pay.index') }}">Назад</a>
 
-<h1>{{ $pay->spending}} </h1>
+<h1>{{ $pays->spending}} </h1>
 
-<p> {{ $pay->sum}}</p>
-<p> {{ $pay->comment}}</p>
+<p> {{ $pays->sum}}</p>
+<p> {{ $pays->comment}}</p>
 

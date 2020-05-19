@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Income;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\IncomeRequest;
 
 class IncomeController extends Controller
 {
-    private  const USER_ID = 1;
+
     /**
      * Display a listing of the resource.
      *
@@ -38,32 +39,11 @@ class IncomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(IncomeRequest $request)
     {
-        try {
-            $this->validate($request,[
+        Income::create($request->all());
 
-                'source' =>'required',
-                'sum' => 'required',
-                'comment' =>'required'
-
-            ]);
-
-            $incomes = new Income();
-            $incomes->sum =$request->get('sum');
-            $incomes->source =$request->get('source');
-            $incomes->comment =$request->get('comment');
-            $incomes->save();
-
-            return redirect(route('income.index'));
-
-        }
-        catch (\Exception $e){
-            return redirect(route('income.create'));
-
-        }
-
-
+        return redirect(route('income.index'));
     }
 
     /**
@@ -96,25 +76,11 @@ class IncomeController extends Controller
      * @param  \App\Income  $income
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $id)
+    public function update(IncomeRequest $request,  $id)
     {
-        try {
-            $this->validate($request,[
-
-                'source' =>'required',
-                'sum' => 'required',
-                'comment' =>'required'
-
-            ]);
-
-            $incomes = Income::find($id);
-            $incomes->fill($request->all());
-            $incomes->save();
+            Income::find($id)->fill($request->all())->save();
 
             return redirect(route('income.index'));
-    } catch (\Exception $exception) {
-            return view('finanse/income.edit', ['income' => Income::findOrFail($id)]);
-    }
 
     }
 
@@ -126,16 +92,18 @@ class IncomeController extends Controller
      */
     public function destroy($id)
     {
-        $income= Income::find($id);
-        $income->delete();
+        Income::find($id)->delete();
+
         return redirect(route('income.index'));
 
-
     }
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application
+     */
     public function sum()
     {
-        $income = DB::table('incomes')
-            ->sum('sum');
+        $income = DB::table('incomes')->sum('sum');
 
         return view('finanse/income.sum', compact('income'));
 
