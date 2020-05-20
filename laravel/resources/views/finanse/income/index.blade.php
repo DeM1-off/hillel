@@ -1,4 +1,6 @@
-@include('layouts.app')
+@extends('layouts.app')
+
+@section('content')
 <style>
 .create{
     margin: 30px;
@@ -59,3 +61,4 @@
 
 </div>
 </div>
+@endsection
