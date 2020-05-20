@@ -1,26 +1,21 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Create income</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+@extends('layouts.app')
 
-</head>
+@section('content')
 <style>
     form{
         width: 100%;
     }
 </style>
-<body>
-<p>  <a href="{{   route('income.index') }}">Назад</a></p>
+
+
 <div class="container">
+    <a href="{{   route('income.index') }}">Назад</a>
     <div class="row">
 
-<h3>Create Income</h3>
+        <br>
+        <div class="col-md-12"><h3>Create Income</h3></div>
 
+        <br>    <br>
 @include('errors')
 
 <form action="{{ route('income.store') }}" method="post">
@@ -45,7 +40,5 @@
 </form>
     </div>
 </div>
+@endsection
 
-
-</body>
-</html>

@@ -55,10 +55,10 @@ class PayController extends Controller
     public function store(PayRequest $request)
     {
 
-            $pays = new Pay();
-            $pays->fill($request->all());
-            $pays ->save();
-            return redirect(route('pay.index'));
+        $pays = new Pay();
+        $pays->fill($request->all());
+        $pays ->save();
+        return redirect(route('pay.index'));
 
     }
 
@@ -102,7 +102,7 @@ class PayController extends Controller
 
         $this->payService->updatePay($id, $request->all());
 
-         return redirect(route('pay.index'));
+        return redirect(route('pay.index'));
 
 
     }

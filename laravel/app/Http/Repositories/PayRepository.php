@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 
 
 use App\Models\Pay;
+use Illuminate\Database\Eloquent\Collection;
 
 class PayRepository implements PayRepositoryInterface
 {
@@ -34,10 +35,16 @@ class PayRepository implements PayRepositoryInterface
         return $this->model->find($id);
     }
 
+
     public function findBySpending(string  $spending): ?Pay
     {
         return  $this->model->where('spending','=',$spending)->first();
 
+    }
+
+    public function findAll(): Collection
+    {
+        return $this->model->get();
     }
 
     public function save(Pay $pays, array $data)

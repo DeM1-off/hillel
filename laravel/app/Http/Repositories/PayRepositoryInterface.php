@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 
 
 use App\Models\Pay;
+use Illuminate\Database\Eloquent\Collection;
 
 interface PayRepositoryInterface
 {
@@ -14,5 +15,6 @@ interface PayRepositoryInterface
      */
     public function findById(int $id): ?Pay;
     public function findBySpending(string $title): ?Pay;
+    public function findAll() :Collection;
     public function save(Pay $pay, array $data);
 }

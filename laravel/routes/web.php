@@ -42,3 +42,7 @@ Route::get('finanse/pay/sum', 'PayController@sum')->name('pay.sum');
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

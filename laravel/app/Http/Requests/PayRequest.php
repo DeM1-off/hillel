@@ -27,6 +27,7 @@ class PayRequest extends FormRequest
             'spending' =>'required',
             'sum' => 'required',
             'comment' =>'required',
+
         ];
     }
 }

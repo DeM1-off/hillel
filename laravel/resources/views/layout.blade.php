@@ -16,6 +16,13 @@
 
         <!-- Styles -->
         <style>
+            .create{
+                margin: 30px;
+                padding: 20px;
+            }
+            table{
+                margin-top: 30px;
+            }
             html, body {
                 background-color: #fff;
                 color: #636b6f;

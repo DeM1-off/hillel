@@ -1,3 +1,5 @@
+
+
 <a href="{{   route('pay.index') }}">Назад</a>
 
 <h1>{{ $pays->spending}} </h1>
